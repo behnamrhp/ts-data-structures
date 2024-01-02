@@ -48,6 +48,30 @@ class DoublyLinkedList {
     // return class
     return this
   }
+
+  pop() {
+    // check if there is no head return undefined
+    if (!this.head) return undefined
+    // save tail in a variable
+    const tailToRmove = this.tail
+    // check if length is one set head and tail to null
+    if (this.length === 1) {
+      this.head = null
+      this.tail = null
+      this.length--
+      return null
+    }
+    const prevTail = (this.tail as Node).prev as Node
+    // update tail to be previous node
+    this.tail = prevTail
+    // update tail next to be null
+    prevTail.next = null;
+    (tailToRmove as Node).prev = null;
+    // decrement the length 
+    this.length--
+    // return removed node
+    return tailToRmove
+  }
 }
 
 const list = new DoublyLinkedList()
@@ -56,6 +80,8 @@ list.push("hello")
 list.push("world")
 list.push("to")
 list.push("behnam")
+list.pop()
 console.log(list.head?.next)
+console.log(list.tail)
 
 export {}
