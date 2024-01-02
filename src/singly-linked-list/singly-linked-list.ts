@@ -1,5 +1,5 @@
-class SingleNode {
-  next: SingleNode | null;
+class Node {
+  next: Node | null;
 
   val: unknown | null
 
@@ -10,9 +10,9 @@ class SingleNode {
 }
 
 class SinglyLinkedList {
-  head: null | SingleNode
+  head: null | Node
 
-  tail: null | SingleNode
+  tail: null | Node
 
   length: number
 
@@ -24,7 +24,7 @@ class SinglyLinkedList {
   
   push(val: unknown) {
       // make related node
-      const newNode = new SingleNode(val)
+      const newNode = new Node(val)
       // check if there is no head assign
       if (!this.head) {
           this.head = newNode
@@ -79,7 +79,7 @@ class SinglyLinkedList {
 
   unShift(val: unknown) {
     // make new node for new head
-    const newHead = new SingleNode(val)
+    const newHead = new Node(val)
     // check if head not exists add newly created next to the head
     newHead.next = this.head
     if (!this.head) {
@@ -93,7 +93,7 @@ class SinglyLinkedList {
     return newHead
   }
 
-  get(index: number): SingleNode | null {
+  get(index: number): Node | null {
     // check index with length to see if equal or greated than it return null
     if (index < 0 || index >= this.length) return null
     // make loop from zero to index to get val
@@ -131,11 +131,11 @@ class SinglyLinkedList {
         return true
     }
     // get prev node
-    const prevNode = this.get(index - 1) as SingleNode
+    const prevNode = this.get(index - 1) as Node
     // save default next
     const defaultNext = prevNode.next
     // make new node
-    const newNode = new SingleNode(val)
+    const newNode = new Node(val)
     // set default next to new node
     newNode.next = defaultNext
     // set next for new node in next of prev node
@@ -159,7 +159,7 @@ class SinglyLinkedList {
         return true
     }
     // get prev node to remove
-    const prevNode = this.get(index - 1) as SingleNode
+    const prevNode = this.get(index - 1) as Node
     // save next of next prev node to a temp
     const tempNode = prevNode.next?.next || null
     // set temp next to prev node
@@ -175,14 +175,14 @@ class SinglyLinkedList {
     // make variable to save current node that should be next for next node
     let currentNodeToBeNext = this.head
     // make var to save prev node to check
-    let prevNode: null | SingleNode = null
+    let prevNode: null | Node = null
     // switch between head and tail
-    this.head = this.tail as SingleNode
+    this.head = this.tail as Node
     this.tail = currentNodeToBeNext
     // make loop untile we have no next
     for(let i = 0; i < this.length; i++) {
         // save next node to a temp
-       const tempNext: SingleNode = currentNodeToBeNext.next as SingleNode
+       const tempNext: Node = currentNodeToBeNext.next as Node
        // save next node as prev
         currentNodeToBeNext.next = prevNode
         // save current node to prev
@@ -211,3 +211,4 @@ console.log('--reverse--')
 singlyLinkedList.reverse()
 console.log('---traverse---')
 singlyLinkedList.traverse()
+export {}
