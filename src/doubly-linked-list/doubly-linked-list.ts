@@ -124,6 +124,42 @@ class DoublyLinkedList {
     // return list
     return this
   }
+
+  get(index: number): null | Node {
+    // if index is less than zero or equal or higher than length return null
+    if (index < 0 || index >= this.length) return null
+
+    const isIndexLessThanMiddle = index <= this.length / 2
+    console.log('iss', isIndexLessThanMiddle)
+    // check if index is equal of less then middle of the length
+    if (isIndexLessThanMiddle) {
+      // make variable to return at last as head
+      let currentNode = this.head as Node | null
+      let i = 0
+      // make loop from zero to less than index 
+      while (i !== index) {
+        // make i incremented
+        i++
+        // set variable as next of currnt
+        currentNode = currentNode?.next || null
+      }
+      // return variable
+      return currentNode
+    }
+    // make variable to return at last as tail
+    let currentNode = this.tail as Node | null
+    let i = this.length - 1
+    // make loop from length - 1 to (whole minus index) decremental
+    const reversedIndexFromEnd = this.length - index
+    while (i !== reversedIndexFromEnd) {
+      // make i decremented
+      i--
+      // set variable as prev of current
+      currentNode = currentNode?.prev || null
+    }
+    // return variable
+    return currentNode
+  }
 }
 
 const list = new DoublyLinkedList()
@@ -135,7 +171,8 @@ list.push("behnam")
 list.pop()
 list.shift()
 list.unshift("hello again")
-console.log(list.head)
-console.log(list.tail)
+console.log(list.get(3))
+// console.log(list.head)
+// console.log(list.tail)
 
 export {}
