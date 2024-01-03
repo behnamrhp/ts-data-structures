@@ -130,7 +130,6 @@ class DoublyLinkedList {
     if (index < 0 || index >= this.length) return null
 
     const isIndexLessThanMiddle = index <= this.length / 2
-    console.log('iss', isIndexLessThanMiddle)
     // check if index is equal of less then middle of the length
     if (isIndexLessThanMiddle) {
       // make variable to return at last as head
@@ -171,6 +170,39 @@ class DoublyLinkedList {
     // return true 
     return true
   }
+
+  insert(index: number, val: unknown): boolean {
+    // if index is less than zero or higher than length return null
+    if (index < 0 || index > this.length) return false
+    // if index is zero unshift and return true
+    if (index === 0) {
+      this.unshift(val)
+      return true
+    }
+    // if index is equal lenght will be push and return true
+    if (index === this.length) {
+      this.push(val)
+      return true
+    }
+    // make new node
+    const newNode = new Node(val)
+    // get prev node by index - 1
+    const prevNode = this.get(index - 1) as Node
+    // get next node 
+    const nextNode = prevNode.next as Node
+    // set prev of next node to new node 
+    nextNode.prev = newNode
+    // set next of prev node to new node
+    prevNode.next = newNode
+    // set prev of new node to prev node
+    newNode.prev = prevNode
+    // set next of new node to next node
+    newNode.next = nextNode
+    // increase length
+    this.length++
+    // return true
+    return true
+  }
 }
 
 const list = new DoublyLinkedList()
@@ -182,8 +214,10 @@ list.push("behnam")
 list.pop()
 list.shift()
 list.unshift("hello again")
-console.log(list.get(3))
-// console.log(list.head)
+// console.log(list.get(3))
+list.insert(1, 'from')
+
+console.log(list.head)
 // console.log(list.tail)
 
 export {}
