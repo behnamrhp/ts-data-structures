@@ -160,6 +160,17 @@ class DoublyLinkedList {
     // return variable
     return currentNode
   }
+
+  set(index: number, val: unknown): boolean {
+    // get node by index
+    const node = this.get(index)
+    // if it not exists return false
+    if (!node) return false
+    // otherwise set val of node to new node
+    node.val = val
+    // return true 
+    return true
+  }
 }
 
 const list = new DoublyLinkedList()
