@@ -72,6 +72,58 @@ class DoublyLinkedList {
     // return removed node
     return tailToRmove
   }
+
+  shift() {
+    // if length is zero return undefined
+    if (this.length === 0) return undefined
+    // save old head
+    const oldHead = this.head as Node
+    // if lenght is 1 
+    if (this.length === 1){
+      // set head to null
+      this.head = null
+      // set tail to null
+      this.tail = null
+      // decrease 
+      this.length--
+      // return old head
+      return oldHead
+    }
+    // save next of old head as new head
+    this.head = oldHead?.next as Node
+    // set prev of head as null
+    this.head.prev = null
+    // set next of old head as null
+    oldHead.next = null
+    // return old head
+    return oldHead
+  }
+
+  unshift(val: unknown) {
+    // make new node
+    const newNode = new Node(val)
+    // check if lenght is 0 
+    if (this.length === 0) {
+      // set head to new node
+      this.head = newNode
+      // set tail to new node
+      this.tail = newNode
+      // increment
+      this.length++
+      // return list
+      return this
+    }
+    // set prev of head to new node
+    (this.head as Node).prev = newNode 
+    // set next of new node to head
+    newNode.next = this.head
+    // set head to new node
+    this.head = newNode
+    // increment
+    this.length++
+    // return list
+    return this
+  }
 }
 
 const list = new DoublyLinkedList()
@@ -81,7 +133,9 @@ list.push("world")
 list.push("to")
 list.push("behnam")
 list.pop()
-console.log(list.head?.next)
+list.shift()
+list.unshift("hello again")
+console.log(list.head)
 console.log(list.tail)
 
 export {}
