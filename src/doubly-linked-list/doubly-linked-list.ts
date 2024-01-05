@@ -49,7 +49,7 @@ class DoublyLinkedList {
     return this
   }
 
-  pop() {
+  pop(): undefined | Node {
     // check if there is no head return undefined
     if (!this.head) return undefined
     // save tail in a variable
@@ -59,7 +59,7 @@ class DoublyLinkedList {
       this.head = null
       this.tail = null
       this.length--
-      return null
+      return undefined
     }
     const prevTail = (this.tail as Node).prev as Node
     // update tail to be previous node
@@ -70,7 +70,7 @@ class DoublyLinkedList {
     // decrement the length 
     this.length--
     // return removed node
-    return tailToRmove
+    return tailToRmove || undefined
   }
 
   shift() {
@@ -203,6 +203,32 @@ class DoublyLinkedList {
     // return true
     return true
   }
+
+  remove(index: number): undefined | Node {
+    // if index is less than zero or higher than length return null
+    if (index < 0 || index > this.length) return undefined
+    // if zero -> shift
+    if (index === 0) return this.shift()
+    // if equal length - 1 -> pop
+    if (index === this.length - 1) return this.pop()
+    // get node
+    const node = this.get(index) as Node
+    // get prev
+    const prev = node.prev as Node
+    // get next
+    const next = node.next as Node
+    // set next of prev as got next
+    prev.next = next
+    // set prev of next as got prev
+    next.prev = prev
+    // set prev and next of found node to null
+    node.next = null
+    node.prev = null
+    // decrease length
+    this.length--
+    // return node
+    return node
+  }
 }
 
 const list = new DoublyLinkedList()
@@ -216,6 +242,7 @@ list.shift()
 list.unshift("hello again")
 // console.log(list.get(3))
 list.insert(1, 'from')
+list.remove(1)
 
 console.log(list.head)
 // console.log(list.tail)
