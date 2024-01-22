@@ -55,4 +55,11 @@ class Queue {
   }
 }
 
+const queue = new Queue()
+queue.enqueue("First")
+queue.enqueue("second")
+queue.enqueue("thirt")
+console.log(queue.dequeue())
+console.log(queue.dequeue())
+
 export {}
