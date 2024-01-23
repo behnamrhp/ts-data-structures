@@ -61,5 +61,6 @@ queue.enqueue("second")
 queue.enqueue("thirt")
 console.log(queue.dequeue())
 console.log(queue.dequeue())
+console.log(queue.dequeue())
 
 export {}
