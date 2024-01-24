@@ -27,7 +27,7 @@ class BST {
       this.root = newNode;
       return newNode
     }
-    // Make loop to get node
+    // Make loop  to get node
     const recursiveInsert = (node: Node): Node => {
       // Check if greater
       if (newNode.value >= node.value) {
@@ -56,6 +56,29 @@ class BST {
 
     return recursiveInsert(this.root)
   }
+
+  find(value: number): null | Node {
+    if (!this.root) return null
+
+    // Make loop to get node and check its value
+    const recursiveFind = (node: Node): null | Node => {
+      // if value equal to node value return
+      if (node.value === value) return node
+      // if greater and greater node exists recursive loop
+      if (value > node.value && node.right) return recursiveFind(node.right)
+      // if greater and greater node not exists return null
+      if (value > node.value && !node.right) return null
+      // if less and less node exists recursive loop
+      if (value < node.value && node.left) return recursiveFind(node.left)
+      // if less and less node not exists return null
+      if (value < node.value && !node.left) return null
+
+      return null
+    }
+
+    return recursiveFind(this.root)
+  }
+
 }
 
 const bst = new BST()
@@ -71,5 +94,6 @@ bst.insert(15)
 bst.insert(7)
 bst.insert(2)
 console.log(bst.root.left)
+console.log('found node', bst.find(15))
 
 export {}
