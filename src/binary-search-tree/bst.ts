@@ -12,7 +12,7 @@ class Node {
   }
 }
 
-class BST {
+export default class BST {
   root: Node | null
 
   constructor() {
@@ -79,21 +79,50 @@ class BST {
     return recursiveFind(this.root)
   }
 
+  /**
+   * Breath first traversal
+   */
+  bfsTraversal() {
+    if (!this.root) return []
+    // Create queue
+    // const queue = new Queue<Node>()
+    const queue: Node[] = []
+    // Create visited array
+    const visited: number[] = []
+    // Enqueue root on a node of queue
+    queue.push(this.root)
+    // Loop through the queque
+    const recursiveTravers = () => {
+      // Base case if queue size is zero break the loop
+      if (!queue.length) return;
+      // Dequeue from queue
+      const node = queue.shift() as Node
+      // Push dequeued to visited
+      visited.push(node.value)
+      // Check if there is left property of dequeued add to queue
+      if (node?.left) {
+        queue.push(node.left)
+      }
+      // Check if there is right property of dequeued add to queue
+      if (node?.right) {
+        queue.push(node.right)
+      }
+      recursiveTravers()
+    }
+    recursiveTravers()
+    // return visited
+    return visited
+  }
+
 }
 
 const bst = new BST()
 
 bst.root = new Node(10)
 bst.root.left = new Node(5)
-bst.root.left.right = new Node(6)
 bst.root.right = new Node(15)
-console.log(bst.root.left)
-
-bst.insert(20)
-bst.insert(15)
-bst.insert(7)
-bst.insert(2)
-console.log(bst.root.left)
+bst.root.left.left = new Node(4)
+bst.root.left.right = new Node(6)
+bst.insert(12)
 console.log('found node', bst.find(15))
-
-export {}
+console.log('traversed', bst.bfsTraversal())

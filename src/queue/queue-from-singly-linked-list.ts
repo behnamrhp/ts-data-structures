@@ -1,18 +1,18 @@
-class Node {
-  next: Node | null
+class Node<T extends unknown> {
+  next: Node<T> | null
 
   value: unknown
 
-  constructor(value: unknown) {
+  constructor(value: T) {
     this.value = value;
     this.next = null
   }
 }
 
-class Queue {
-  first: Node | null
+export default class Queue<T extends unknown> {
+  first: Node<T> | null
 
-  last: Node | null
+  last: Node<T> | null
 
   size = 0;
 
@@ -21,7 +21,7 @@ class Queue {
     this.last = null;
   }
 
-  enqueue(value: unknown) {
+  enqueue(value: T) {
     const newQueue = new Node(value)
     // if size is zero pass last and first and increase size
     if (this.size === 0) {
@@ -30,7 +30,7 @@ class Queue {
       return this.size++;
     } 
     // pass next of last to new Queue
-    (this.last as Node).next = newQueue
+    (this.last as Node<T>).next = newQueue
     // set last as new queue
     this.last = newQueue
     // increase size
@@ -38,7 +38,7 @@ class Queue {
     return this.size++;
   }
 
-  dequeue() {
+  dequeue(): undefined | T {
     // if there is no first return null
     if (!this.first) return;
     // save first in a variable
@@ -51,7 +51,7 @@ class Queue {
     // decrease size
     this.size--
     // return saved first
-    return temp.value
+    return temp.value as T
   }
 }
 
@@ -62,5 +62,3 @@ queue.enqueue("thirt")
 console.log(queue.dequeue())
 console.log(queue.dequeue())
 console.log(queue.dequeue())
-
-export {}
