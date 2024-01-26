@@ -85,7 +85,6 @@ export default class BST {
   bfsTraversal() {
     if (!this.root) return []
     // Create queue
-    // const queue = new Queue<Node>()
     const queue: Node[] = []
     // Create visited array
     const visited: number[] = []
@@ -114,15 +113,94 @@ export default class BST {
     return visited
   }
 
+  /**
+   * Depth first pre order traversal
+   */
+  dfsPreOrderTraversal() {
+    // If there is no root return empty array
+    if (!this.root) return []
+    // Make a variable to store
+    const visited: number[] = []
+    // Make loop over nodes
+    const recursiveTraverse = (node: Node) => { 
+      // save current node value in variable
+      visited.push(node.value)
+      // check if there is left make recursive loop 
+      if (node.left) {
+        recursiveTraverse(node.left)
+      }
+      // check if there is right make recursive loop
+      if (node.right) {
+        recursiveTraverse(node.right)
+      }
+    }
+
+    recursiveTraverse(this.root)
+    // return variable 
+    return visited
+  }
+
+  dfsPostOrderTraversal() {
+    // If there is no root return empty array
+    if (!this.root) return []
+    // Make a variable to store
+    const visited: number[] = []
+    // Make loop over nodes
+    const recursiveTraverse = (node: Node) => {
+      // If node has left recursive
+      if (node.left) {
+        recursiveTraverse(node.left)
+      }
+      // If node has right recursive
+      if (node.right) {
+        recursiveTraverse(node.right)
+      }
+      // Push the value to visited
+      visited.push(node.value)
+    }
+    recursiveTraverse(this.root)
+    // Return visited 
+    return visited
+  }
+
+  dfsInOrderTraversal() {
+    // If there is no root return empty array
+    if (!this.root) return []
+    // Make a variable to store
+    const visited: number[] = []
+    // Make loop over nodes
+    const recursiveTraverse = (node: Node) => {
+      // If node has left recursive
+      if (node.left) {
+        recursiveTraverse(node.left)
+      }
+      visited.push(node.value)
+      // If node has right recursive
+      if (node.right) {
+        recursiveTraverse(node.right)
+      }
+      // Push the value to visited
+    }
+    recursiveTraverse(this.root)
+    // Return visited 
+    return visited
+  }
 }
 
 const bst = new BST()
 
 bst.root = new Node(10)
-bst.root.left = new Node(5)
+bst.root.left = new Node(6)
 bst.root.right = new Node(15)
-bst.root.left.left = new Node(4)
-bst.root.left.right = new Node(6)
+bst.root.right.right = new Node(20)
+bst.root.left.left = new Node(3)
+bst.root.left.right = new Node(8)
 bst.insert(12)
+//      10
+//   6      15
+// 3  8   12   20
 console.log('found node', bst.find(15))
-console.log('traversed', bst.bfsTraversal())
+console.log('traversed with bst', bst.bfsTraversal())
+console.log('traversed with dfs pre order', bst.dfsPreOrderTraversal())
+console.log('traversed with dfs post order', bst.dfsPostOrderTraversal())
+console.log('traversed with dfs in order', bst.dfsInOrderTraversal())
