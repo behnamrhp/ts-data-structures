@@ -42,13 +42,54 @@ export default class HashMap {
     // return
     return value
   }
+
+  keys() {
+    if (!this.keymap.length) return []
+    // make a set to save
+    const keySet = new Set()
+    // loop through array keymap
+    for(let i = 0; i < this.keymap.length; i++) {
+      const item = this.keymap[i]
+      // check item exists
+      if (!item) continue;
+      // loop through one index
+      for (let indexItem of item) {
+        // get first value and add to saved
+        keySet.add(indexItem[0])
+      }
+    }
+    // return set
+    return Array.from(keySet.values())
+  }
+
+  values() {
+    if (!this.keymap.length) return []
+    // make variable to save values in array
+    const values: unknown[] = []
+    // loop through array keymap
+    for(let i = 0; i < this.keymap.length; i++) {
+      const item = this.keymap[i]
+      // check item exists
+      if (!item) continue;
+      // loop through one index
+      for (let indexItem of item) {
+        // get first value and add to saved
+        values.push(indexItem[1])
+      }
+    }
+    // return set
+    return values
+  }
 }
 
 const hashMap = new HashMap()
 
 hashMap.set('white', '#fff')
 hashMap.set('black', '#000')
+hashMap.set('black2', '#000')
 
 
 console.log(hashMap.keymap)
 console.log('get method', hashMap.get('white'))
+console.log('keys', hashMap.keys())
+console.log('values', hashMap.values())
