@@ -22,11 +22,24 @@ export default class Graph {
   }
 
   /* -------------------------------------------------------------------------- */
+  removeEdge(vertex1: string, vertex2: string) {
+    if (!this.adjacencyList[vertex1] || !this.adjacencyList[vertex2]) return;
+    const indexOfVer2inVer1 = this.adjacencyList[vertex1]!.indexOf(vertex2)
+    this.adjacencyList[vertex1]!.splice(indexOfVer2inVer1, 1)
+    const indexOfVer1inVer2 = this.adjacencyList[vertex2]!.indexOf(vertex1)
+    this.adjacencyList[vertex2]!.splice(indexOfVer1inVer2, 1)
+  }
+
+  /* -------------------------------------------------------------------------- */
 }
 
 const graph = new Graph()
 
 graph.addVertex('Tokyo')
-graph.addEdge('Tokyo', 'Newyork')
+graph.addVertex('Aspen')
+graph.addEdge('Tokyo', 'Dallas')
+graph.addEdge('Aspen', 'Dallas')
+graph.removeEdge('Tokyo', 'Dallas')
+
 
 console.log(graph.adjacencyList)
