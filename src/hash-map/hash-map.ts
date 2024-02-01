@@ -1,10 +1,12 @@
 export default class HashMap {
+  /* ------------------------------- Attributes ------------------------------- */
   keymap: Array<(string[])[]>
-  
+  /* ------------------------------- Constructor ------------------------------ */
   constructor(size?: number) {
     this.keymap = new Array(size || 53)
   }
 
+  /* ----------------------------- Implementation ----------------------------- */
   private hash(key: string): number {
     const ALetterCharCodeMinusOne = 96;
     const WEIRD_PRIME = 31
@@ -18,6 +20,7 @@ export default class HashMap {
     return total
   }
 
+  /* -------------------------------------------------------------------------- */
   set(key: string, value: string) {
     // Get hashed key
     const index = this.hash(key)
@@ -29,6 +32,7 @@ export default class HashMap {
     this.keymap[index]?.push([key, value])
   }
 
+  /* -------------------------------------------------------------------------- */
   get(key: string) {
     // Get hashed index
     const index = this.hash(key)
@@ -43,6 +47,7 @@ export default class HashMap {
     return value
   }
 
+  /* -------------------------------------------------------------------------- */
   keys() {
     if (!this.keymap.length) return []
     // make a set to save
@@ -62,6 +67,7 @@ export default class HashMap {
     return Array.from(keySet.values())
   }
 
+  /* -------------------------------------------------------------------------- */
   values() {
     if (!this.keymap.length) return []
     // make variable to save values in array
@@ -80,8 +86,12 @@ export default class HashMap {
     // return set
     return values
   }
+  /* -------------------------------------------------------------------------- */
 }
 
+/* -------------------------------------------------------------------------- */
+/*                                    Usage                                   */
+/* -------------------------------------------------------------------------- */
 const hashMap = new HashMap()
 
 hashMap.set('white', '#fff')
