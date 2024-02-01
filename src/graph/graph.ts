@@ -24,10 +24,19 @@ export default class Graph {
   /* -------------------------------------------------------------------------- */
   removeEdge(vertex1: string, vertex2: string) {
     if (!this.adjacencyList[vertex1] || !this.adjacencyList[vertex2]) return;
-    const indexOfVer2inVer1 = this.adjacencyList[vertex1]!.indexOf(vertex2)
-    this.adjacencyList[vertex1]!.splice(indexOfVer2inVer1, 1)
-    const indexOfVer1inVer2 = this.adjacencyList[vertex2]!.indexOf(vertex1)
-    this.adjacencyList[vertex2]!.splice(indexOfVer1inVer2, 1)
+    this.adjacencyList[vertex1] = this.adjacencyList[vertex1]!.filter((vertex) => vertex !== vertex2)
+    this.adjacencyList[vertex2] = this.adjacencyList[vertex2]!.filter((vertex) => vertex !== vertex1)
+  }
+
+  /* -------------------------------------------------------------------------- */
+  removeVertex(vertexName: string) {
+    if (!this.adjacencyList[vertexName]) return;
+    // Loop through all array of vertex and call remove edge
+    while(this.adjacencyList[vertexName]!.length) {
+      const connectedVertex = this.adjacencyList[vertexName]!.pop() as string
+      this.removeEdge(vertexName, connectedVertex)
+    }
+    delete this.adjacencyList[vertexName]
   }
 
   /* -------------------------------------------------------------------------- */
@@ -37,9 +46,12 @@ const graph = new Graph()
 
 graph.addVertex('Tokyo')
 graph.addVertex('Aspen')
+graph.addEdge('Tokyo', 'Hongkong')
 graph.addEdge('Tokyo', 'Dallas')
+graph.addVertex('Senegal')
+graph.addEdge('Tokyo', 'Senegal')
 graph.addEdge('Aspen', 'Dallas')
-graph.removeEdge('Tokyo', 'Dallas')
-
+// graph.removeEdge('Tokyo', 'Dallas')
+graph.removeVertex('Tokyo')
 
 console.log(graph.adjacencyList)
