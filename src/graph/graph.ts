@@ -43,7 +43,7 @@ export default class Graph {
   /**
    * Depth First Traversal
    */
-  DfTraversal(start: string) {
+  dfTraversal(start: string) {
     // Create result list to return at last
     const resultList: string[] = []
     // Creat Object of visited
@@ -70,6 +70,42 @@ export default class Graph {
   }
 
   /* -------------------------------------------------------------------------- */
+  /**
+   * Depth first Iterative Traversal
+   */
+  dfIterativeTraversal(start: string) {
+    // Make base stack
+    const stack: string[] = []
+    // Make visited
+    const visited: Record<string, true> = {}
+    // Result list
+    const resultList: string[] = []
+    // Add start to base stack
+    stack.push(start)
+    const adjacencyList = this.adjacencyList;
+    // While stack has length
+    while(stack.length) {
+      // Pop Node from start
+      const vertex = stack.pop() as string
+      // Check if vertex visited continue
+      if (visited[vertex]) continue;
+      // Mark as visited
+      visited[vertex] = true
+      // Add to visited
+      resultList.push(vertex)
+      // Push all neighbours to the stack
+      adjacencyList[vertex]?.forEach((neighbor) => {
+        // if visited continue
+        if (visited[neighbor]) return
+        // add to stack
+        stack.push(neighbor)
+      })
+    }
+    // return result
+    return resultList
+  }
+
+  /* -------------------------------------------------------------------------- */
 }
 
 const graph = new Graph()
@@ -81,6 +117,7 @@ graph.addEdge('Tokyo', 'Dallas')
 graph.addVertex('Senegal')
 graph.addEdge('Tokyo', 'Senegal')
 graph.addEdge('Aspen', 'Dallas')
+console.log(graph.adjacencyList)
 graph.removeEdge('Aspen', 'Dallas')
 graph.removeVertex('Tokyo')
 graph.removeVertex('Aspen')
@@ -111,5 +148,6 @@ graph.addEdge('D', 'E')
 graph.addEdge('D', 'F')
 graph.addEdge('E', 'F')
 
-console.log(graph.DfTraversal('A'))
 console.log(graph.adjacencyList)
+console.log(graph.dfTraversal('A'))
+console.log(graph.dfIterativeTraversal('A'))
