@@ -40,6 +40,36 @@ export default class Graph {
   }
 
   /* -------------------------------------------------------------------------- */
+  /**
+   * Depth First Traversal
+   */
+  DfTraversal(start: string) {
+    // Create result list to return at last
+    const resultList: string[] = []
+    // Creat Object of visited
+    const visited: Record<string, true> = {};
+
+    const adjacencyList = this.adjacencyList;
+    // Loop through vertecies with getting vertex
+    (function recursiveDfs(vertex?: string) {
+      // if empty array return 
+      if (!vertex) return null
+      // add vertex name to visited
+      visited[vertex] = true
+      resultList.push(vertex)
+      // loop over edges
+      adjacencyList[vertex]?.forEach((neighbor) => {
+        // if visited continue
+        if (visited[neighbor]) return
+        // call recursive
+        recursiveDfs(neighbor)
+      })
+    })(start)
+
+    return resultList
+  }
+
+  /* -------------------------------------------------------------------------- */
 }
 
 const graph = new Graph()
@@ -51,7 +81,35 @@ graph.addEdge('Tokyo', 'Dallas')
 graph.addVertex('Senegal')
 graph.addEdge('Tokyo', 'Senegal')
 graph.addEdge('Aspen', 'Dallas')
-// graph.removeEdge('Tokyo', 'Dallas')
+graph.removeEdge('Aspen', 'Dallas')
 graph.removeVertex('Tokyo')
+graph.removeVertex('Aspen')
+graph.removeVertex('Senegal')
+graph.removeVertex('Hongkong')
+graph.removeVertex('Dallas')
+/* -------------------------------------------------------------------------- */
+graph.addVertex('A')
+graph.addVertex('B')
+graph.addVertex('C')
+graph.addVertex('D')
+graph.addVertex('E')
+graph.addVertex('F')
 
+//          A
+//        /   \
+//       B     C
+//       |     |
+//       D --- E
+//        \   /
+//          F
+
+graph.addEdge('A', 'B')
+graph.addEdge('A', 'C')
+graph.addEdge('B', 'D')
+graph.addEdge('C', 'E')
+graph.addEdge('D', 'E')
+graph.addEdge('D', 'F')
+graph.addEdge('E', 'F')
+
+console.log(graph.DfTraversal('A'))
 console.log(graph.adjacencyList)
