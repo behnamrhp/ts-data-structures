@@ -124,7 +124,7 @@ graph.removeVertex('Aspen')
 graph.removeVertex('Senegal')
 graph.removeVertex('Hongkong')
 graph.removeVertex('Dallas')
-/* -------------------------------------------------------------------------- */
+/* ------------------- Check with Alphabetic and traverses ------------------ */
 graph.addVertex('A')
 graph.addVertex('B')
 graph.addVertex('C')
