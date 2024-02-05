@@ -106,6 +106,41 @@ export default class Graph {
   }
 
   /* -------------------------------------------------------------------------- */
+  /**
+   * Breadth First Search
+   */
+  bfsTraversal(start: string) {
+    // Create queue
+    const queue: string[] = []
+    // Create visited object
+    const visited: Record<string, true> = {}
+    // Create result
+    const result: string[] = []
+    // Push it to queue
+    queue.push(start)
+    // Make loop as long as there is something in queue
+    while(queue.length) {
+      // get node from queue
+      const vertex = queue.shift() as string
+      // if visited continue
+      if (visited[vertex]) continue;
+      // mark as visited
+      visited[vertex] = true
+      // add to result
+      result.push(vertex)
+      // loop through children
+      this.adjacencyList[vertex]?.forEach((neighbor) => {
+        // if visited continue
+        if (visited[neighbor]) return;
+        // enqueue
+        queue.push(neighbor)
+      })
+    }
+    // return result
+    return result;
+  }
+
+  /* -------------------------------------------------------------------------- */
 }
 
 const graph = new Graph()
@@ -151,3 +186,4 @@ graph.addEdge('E', 'F')
 console.log(graph.adjacencyList)
 console.log(graph.dfTraversal('A'))
 console.log(graph.dfIterativeTraversal('A'))
+console.log(graph.bfsTraversal('A'))
