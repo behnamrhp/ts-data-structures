@@ -94,7 +94,6 @@ export default class WeightedGraph {
           // calculate new distance to that neighbor through current vertex
           const distanceCandidate = (distance[smallest] as number) + nextNode.weight
           let neighborVertex = nextNode.node
-          console.log('next node', smallest, neighborVertex, distanceCandidate, distance[neighborVertex],)
           // if distance to neighbor through current vertex is less than 
           //  current distance of this neighbor in distances
           if (distanceCandidate < (distance[neighborVertex] as number)) {
