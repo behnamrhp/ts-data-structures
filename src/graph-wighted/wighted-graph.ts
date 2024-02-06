@@ -1,29 +1,4 @@
-class PriorityQueue {
-/* ------------------------------- Attributes ------------------------------- */
-  values: {val: string, priority: number}[]
-
-/* ------------------------------- Constructor ------------------------------ */
-  constructor(){
-    this.values = [];
-  }
-
-/* ----------------------------- Implementation ----------------------------- */
-  enqueue(val: string, priority: number) {
-    this.values.push({val, priority});
-    this.sort();
-  };
-
-/* -------------------------------------------------------------------------- */
-  dequeue() {
-    return this.values.shift();
-  };
-
-/* -------------------------------------------------------------------------- */
-  sort() {
-    this.values.sort((a, b) => a.priority - b.priority);
-  };
-/* -------------------------------------------------------------------------- */
-}
+import PriorityQueue from "../priority-queue/priority-queue";
 
 export default class WeightedGraph {
 /* ------------------------------- Attributes ------------------------------- */
@@ -76,7 +51,7 @@ export default class WeightedGraph {
     // Start looping as long as there are values in priority queue
     while (node.values.length) {
       //  Dequeue from priority queue
-      smallest = node.dequeue()?.val
+      smallest = node.dequeue()?.value as string
       //  If this dequed is finish vx so we're done
       if (smallest === finishVX) {
         while(previous[smallest]){ 
